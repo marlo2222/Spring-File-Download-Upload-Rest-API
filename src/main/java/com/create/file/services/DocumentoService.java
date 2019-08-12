@@ -1,8 +1,11 @@
 package com.create.file.services;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +33,16 @@ public class DocumentoService {
 		doc.setTipoArquivo(multipartFile.getContentType());
 		doc.setSize(multipartFile.getSize());
 		doc.setHash();
+		doc.setLinkDownload();
+		try {
+			doc.setData(multipartFile.getBytes());
+		} catch (IOException e) {
+				e.printStackTrace();
+		}
 		documentoRepository.save(doc);
 	}
-
+	
+	public Documento getFile(long id){
+		return documentoRepository.findById(id);
+	}
 }
