@@ -34,7 +34,7 @@ public class UsuarioController {
     @GetMapping(value = "/usuario/listar/{id}")
     @ApiOperation(value = "Retorna um usuario pelo id")
     public Usuario listarUsuarioId(@PathVariable("id") long id){
-        return usuarioRepository.getOne(id);
+        return usuarioRepository.findById(id);
     }
 
     @PostMapping(value = "/usuario/salvar")
